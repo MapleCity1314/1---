@@ -4,7 +4,9 @@ import { useActionState, useState } from "react";
 import Link from "next/link";
 import { deriveProfit, money, pct } from "@/lib/utils";
 import { PRODUCT_STATUSES, type Product } from "@/lib/types";
+import { FileDown } from "lucide-react";
 import { Button, Input, Textarea, Select, Label } from "@/components/ui";
+import { ImageUpload } from "@/components/image-upload";
 
 type FormAction = (
   prev: unknown,
@@ -126,16 +128,19 @@ export function ProductForm({
           <Input id="xianyu_url" name="xianyu_url" defaultValue={product?.xianyu_url ?? ""} />
         </div>
 
-        <div>
-          <Label htmlFor="image_url">图片链接</Label>
-          <Input id="image_url" name="image_url" defaultValue={product?.image_url ?? ""} />
+        <div className="md:col-span-2">
+          <Label htmlFor="image_url">商品图片</Label>
+          <ImageUpload
+            name="image_url"
+            defaultValue={product?.image_url}
+            productId={product?.id}
+          />
         </div>
-        <div />
 
         {/* 虚拟资料专区 */}
-        <div className="md:col-span-2 rounded-lg border border-primary/25 bg-primary/5 p-4">
-          <div className="mb-3 flex items-center gap-1.5 text-sm font-medium text-primary-active">
-            <span>✳</span> 虚拟资料交付
+        <div className="md:col-span-2 rounded-xl border border-secondary/25 bg-secondary/5 p-4">
+          <div className="mb-3 flex items-center gap-1.5 text-sm font-medium text-secondary">
+            <FileDown size={15} /> 虚拟资料交付
           </div>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             <div className="md:col-span-2">

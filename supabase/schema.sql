@@ -70,3 +70,32 @@ drop policy if exists "authenticated can delete" on public.products;
 create policy "authenticated can delete"
   on public.products for delete
   to authenticated using (true);
+
+-- ============================================================
+-- 商品图片存储桶：public 桶用于直接展示，写入仍受 RLS 限制
+-- 登录用户可上传/替换/删除，任何人（包括未登录）可读取公开图片
+-- ============================================================
+insert into storage.buckets (id, name, public)
+values ('product-images', 'product-images', true)
+on conflict (id) do nothing;
+
+drop policy if exists "public can read product images" on storage.objects;
+create policy "public can read product images"
+  on storage.objects for select
+  to public using (bucket_id = 'product-images');
+
+drop policy if exists "authenticated can upload product images" on storage.objects;
+create policy "authenticated can upload product images"
+  on storage.objects for insert
+  to authenticated with check (bucket_id = 'product-images');
+
+drop policy if exists "authenticated can update product images" on storage.objects;
+create policy "authenticated can update product images"
+  on storage.objects for update
+  to authenticated using (bucket_id = 'product-images')
+  with check (bucket_id = 'product-images');
+
+drop policy if exists "authenticated can delete product images" on storage.objects;
+create policy "authenticated can delete product images"
+  on storage.objects for delete
+  to authenticated using (bucket_id = 'product-images');

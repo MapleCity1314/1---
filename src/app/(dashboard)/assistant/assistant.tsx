@@ -1,17 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import type { KeyboardEvent } from "react";
 import { useChat } from "@ai-sdk/react";
-import { DefaultChatTransport } from "ai";
-import { Send, Check, X, Sparkles, Wrench, AlertTriangle } from "lucide-react";
-import { Button, Input } from "@/components/ui";
+import {
+  Send,
+  Check,
+  X,
+  Sparkles,
+  Wrench,
+  AlertTriangle,
+  Trash2,
+} from "lucide-react";
+import { Button } from "@/components/ui";
 import { cn } from "@/lib/utils";
+import { useSharedChatInstance, clearStoredChat } from "../chat-provider";
 
 const SUGGESTIONS = [
   "利润率最高的 5 个商品",
   "库存少于 3 的有哪些",
   "帮我看看整体经营情况",
-  "给编号 A001 写一段闲鱼描述",
+  "给编号 A001 写一段爆款文案",
 ];
 
 // 工具名 → 中文说明
@@ -22,6 +31,11 @@ const TOOL_LABELS: Record<string, string> = {
   createProductRecord: "新增商品",
   updateProductRecord: "修改商品",
   deleteProductRecord: "删除商品",
+  writeViralCopy: "写爆款文案",
+  tavilySearch: "联网搜索",
+  tavilyExtract: "抓取网页内容",
+  tavilyCrawl: "爬取网站",
+  tavilyMap: "获取站点地图",
 };
 
 const WRITE_TOOLS = new Set([
@@ -30,18 +44,43 @@ const WRITE_TOOLS = new Set([
   "deleteProductRecord",
 ]);
 
+const MAX_TEXTAREA_HEIGHT = 200;
+
 export function Assistant() {
-  const { messages, sendMessage, status, addToolApprovalResponse } = useChat({
-    transport: new DefaultChatTransport({ api: "/api/chat" }),
-  });
+  const chat = useSharedChatInstance();
+  const { messages, sendMessage, status, addToolApprovalResponse, setMessages } =
+    useChat({ chat });
   const [input, setInput] = useState("");
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const busy = status === "streaming" || status === "submitted";
+
+  function resizeTextarea() {
+    const el = textareaRef.current;
+    if (!el) return;
+    el.style.height = "auto";
+    el.style.height = `${Math.min(el.scrollHeight, MAX_TEXTAREA_HEIGHT)}px`;
+  }
 
   function submit(text: string) {
     const t = text.trim();
     if (!t || busy) return;
     sendMessage({ text: t });
     setInput("");
+    requestAnimationFrame(resizeTextarea);
+  }
+
+  function handleKeyDown(e: KeyboardEvent<HTMLTextAreaElement>) {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      submit(input);
+    }
+  }
+
+  function clearConversation() {
+    if (busy) return;
+    if (!confirm("清空当前对话？此操作不可撤销。")) return;
+    setMessages([]);
+    clearStoredChat();
   }
 
   return (
@@ -49,18 +88,31 @@ export function Assistant() {
       {/* 消息区 */}
       <div className="flex-1 overflow-auto px-8 py-6">
         <div className="mx-auto max-w-3xl space-y-5">
+          {messages.length > 0 && (
+            <div className="flex justify-end">
+              <button
+                onClick={clearConversation}
+                disabled={busy}
+                className="flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs text-muted hover:bg-surface-card hover:text-ink disabled:opacity-50"
+              >
+                <Trash2 size={13} />
+                清空对话
+              </button>
+            </div>
+          )}
+
           {messages.length === 0 && (
-            <div className="rounded-lg border border-hairline bg-white p-6">
-              <div className="mb-3 flex items-center gap-2 text-primary-active">
+            <div className="rounded-xl border border-hairline bg-white p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+              <div className="mb-3 flex items-center gap-2 text-secondary">
                 <Sparkles size={18} />
-                <span className="font-medium">试试这样问我</span>
+                <span className="font-medium text-ink">试试这样问我</span>
               </div>
               <div className="flex flex-wrap gap-2">
                 {SUGGESTIONS.map((s) => (
                   <button
                     key={s}
                     onClick={() => submit(s)}
-                    className="rounded-full border border-hairline bg-canvas px-3 py-1.5 text-sm text-body hover:border-primary hover:text-primary-active"
+                    className="rounded-full border border-hairline bg-white px-3.5 py-1.5 text-sm text-body transition-colors hover:border-secondary hover:text-secondary"
                   >
                     {s}
                   </button>
@@ -88,25 +140,38 @@ export function Assistant() {
         </div>
       </div>
 
-      {/* 输入区 */}
+      {/* 输入区：复合输入框（ChatGPT/Claude 风格） */}
       <div className="border-t border-hairline bg-canvas px-8 py-4">
         <form
           onSubmit={(e) => {
             e.preventDefault();
             submit(input);
           }}
-          className="mx-auto flex max-w-3xl items-center gap-2"
+          className="mx-auto max-w-3xl"
         >
-          <Input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="问点什么，或让我改商品、写文案…"
-            disabled={busy}
-          />
-          <Button type="submit" disabled={busy || !input.trim()}>
-            <Send size={16} />
-            发送
-          </Button>
+          <div className="flex items-end gap-2 rounded-2xl border border-hairline bg-white p-2 shadow-sm focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/15">
+            <textarea
+              ref={textareaRef}
+              rows={1}
+              value={input}
+              onChange={(e) => {
+                setInput(e.target.value);
+                resizeTextarea();
+              }}
+              onKeyDown={handleKeyDown}
+              placeholder="问点什么，或让我改商品、写文案、查资料…（Enter 发送，Shift+Enter 换行）"
+              disabled={busy}
+              style={{ maxHeight: MAX_TEXTAREA_HEIGHT }}
+              className="flex-1 resize-none bg-transparent px-2 py-1.5 text-sm text-ink outline-none placeholder:text-muted-soft disabled:opacity-60"
+            />
+            <Button
+              type="submit"
+              disabled={busy || !input.trim()}
+              className="h-9 w-9 shrink-0 rounded-full p-0"
+            >
+              <Send size={16} />
+            </Button>
+          </div>
         </form>
       </div>
     </div>

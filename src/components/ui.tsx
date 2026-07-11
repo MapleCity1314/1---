@@ -2,12 +2,13 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 // ── Button ──
+// Tavily 规格：胶囊圆角(full)，主色近黑 hover → #3f3f3f，次要为白底描边。
 type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
 const buttonStyles: Record<ButtonVariant, string> = {
   primary:
-    "bg-primary text-white hover:bg-primary-active disabled:bg-primary-disabled disabled:text-muted-soft",
+    "bg-primary text-on-dark shadow-sm hover:bg-primary-active disabled:bg-primary-disabled disabled:text-white disabled:shadow-none",
   secondary:
-    "bg-canvas text-ink border border-hairline hover:bg-surface-card disabled:opacity-50",
+    "bg-white text-ink border border-hairline hover:bg-surface-card hover:border-muted-soft disabled:opacity-50",
   ghost: "text-body hover:bg-surface-card disabled:opacity-50",
   danger: "bg-error text-white hover:brightness-90 disabled:opacity-50",
 };
@@ -20,7 +21,7 @@ export function Button({
   return (
     <button
       className={cn(
-        "inline-flex h-9 items-center justify-center gap-1.5 rounded-md px-3.5 text-sm font-medium transition-colors disabled:cursor-not-allowed",
+        "inline-flex h-9 items-center justify-center gap-1.5 rounded-full px-4 text-sm font-medium transition-colors disabled:cursor-not-allowed",
         buttonStyles[variant],
         className,
       )}
@@ -100,7 +101,7 @@ export function Card({ className, ...props }: React.HTMLAttributes<HTMLDivElemen
   return (
     <div
       className={cn(
-        "rounded-lg border border-hairline bg-white p-5",
+        "rounded-xl border border-hairline bg-white p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04)]",
         className,
       )}
       {...props}
@@ -112,9 +113,9 @@ export function Card({ className, ...props }: React.HTMLAttributes<HTMLDivElemen
 export function StatusPill({ status }: { status: string | null }) {
   const tone =
     status === "已上架"
-      ? "bg-success/15 text-success"
+      ? "bg-success/12 text-success"
       : status === "已售出"
-        ? "bg-teal/15 text-[#2f7a6c]"
+        ? "bg-secondary/12 text-secondary"
         : status === "待拍图" || status === "待上架"
           ? "bg-warning/15 text-[#8a6d10]"
           : "bg-surface-strong text-muted";

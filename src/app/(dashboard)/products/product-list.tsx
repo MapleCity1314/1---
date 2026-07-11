@@ -121,7 +121,7 @@ export function ProductList({ products }: { products: Product[] }) {
       </div>
 
       {filtered.length === 0 ? (
-        <div className="rounded-lg border border-dashed border-hairline bg-white py-20 text-center text-muted">
+        <div className="rounded-xl border border-dashed border-hairline bg-white py-20 text-center text-muted">
           没有匹配的商品
         </div>
       ) : view === "table" ? (
@@ -190,7 +190,7 @@ function ResourceLink({
         href={url}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex max-w-[160px] items-center gap-1 truncate text-primary hover:underline"
+        className="inline-flex max-w-[160px] items-center gap-1 truncate text-secondary hover:underline"
         title={url}
       >
         <ExternalLink size={13} className="shrink-0" />
@@ -253,7 +253,7 @@ function TableView({
   copied: string | null;
 }) {
   return (
-    <div className="overflow-auto rounded-lg border border-hairline bg-white">
+    <div className="overflow-auto rounded-xl border border-hairline bg-white">
       <table className="w-full text-sm whitespace-nowrap">
         <thead>
           <tr className="border-b border-hairline bg-surface-soft text-left">
@@ -354,7 +354,7 @@ function CardView({
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
       {rows.map((p) => (
-        <div key={p.id} className="rounded-lg border border-hairline bg-white p-4">
+        <div key={p.id} className="rounded-xl border border-hairline bg-white p-5 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
           <div className="mb-2 flex items-start justify-between gap-2">
             <div className="min-w-0">
               <div className="font-mono text-xs text-muted">{p.id}</div>

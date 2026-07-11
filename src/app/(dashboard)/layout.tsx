@@ -1,6 +1,9 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { Sidebar } from "@/components/sidebar";
+import { AssistantDock } from "@/components/assistant-dock";
+import { MobileTabBar } from "@/components/mobile-tabbar";
+import { ChatProvider } from "./chat-provider";
 
 export default async function DashboardLayout({
   children,
@@ -15,9 +18,15 @@ export default async function DashboardLayout({
   if (!user) redirect("/login");
 
   return (
-    <div className="flex h-screen overflow-hidden">
-      <Sidebar email={user.email ?? ""} />
-      <main className="flex-1 overflow-auto">{children}</main>
-    </div>
+    <ChatProvider>
+      <div className="flex h-screen overflow-hidden">
+        <Sidebar email={user.email ?? ""} />
+        <main className="relative flex-1 overflow-auto pb-14 lg:pb-0">
+          {children}
+        </main>
+        <AssistantDock />
+        <MobileTabBar />
+      </div>
+    </ChatProvider>
   );
 }

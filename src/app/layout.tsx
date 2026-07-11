@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Cormorant_Garamond } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -8,16 +8,9 @@ const inter = Inter({
   display: "swap",
 });
 
-const serifDisplay = Cormorant_Garamond({
-  variable: "--font-serif-display",
-  subsets: ["latin"],
-  weight: ["500", "600"],
-  display: "swap",
-});
-
 export const metadata: Metadata = {
-  title: "闲鱼一元小店 · 商品中台",
-  description: "虚拟资料商品的上架、增删改查、观测与 AI 助手",
+  title: "中台 · AI 工作台",
+  description: "多业务模块中台，内置 AI 助手，首个模块：闲鱼一元小店",
 };
 
 export default function RootLayout({
@@ -26,10 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="zh-CN"
-      className={`${inter.variable} ${serifDisplay.variable} h-full`}
-    >
+    <html lang="zh-CN" className={`${inter.variable} h-full`}>
       <body className="min-h-full">{children}</body>
     </html>
   );

@@ -16,11 +16,11 @@ import {
 import type { Product } from "@/lib/types";
 import { money } from "@/lib/utils";
 
-const PALETTE = ["#cc785c", "#5db8a6", "#e8a55a", "#243b53", "#5db872", "#a9583e", "#8e8b82"];
+const PALETTE = ["#1f1e1e", "#0088ff", "#13a688", "#e8a55a", "#65676e", "#0059d6", "#9497a0"];
 
 function Panel({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-lg border border-hairline bg-white p-5">
+    <div className="rounded-xl border border-hairline bg-white p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
       <h3 className="mb-4 text-sm font-medium text-body-strong">{title}</h3>
       {children}
     </div>
@@ -129,7 +129,7 @@ export function DashboardCharts({ products }: { products: Product[] }) {
               tick={{ fontSize: 12, fill: "#6c6a64" }}
             />
             <Tooltip formatter={(v) => money(Number(v))} />
-            <Bar dataKey="利润" fill="#cc785c" radius={[0, 4, 4, 0]} />
+            <Bar dataKey="利润" fill="#1f1e1e" radius={[0, 4, 4, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </Panel>
@@ -146,7 +146,7 @@ export function DashboardCharts({ products }: { products: Product[] }) {
               tick={{ fontSize: 12, fill: "#6c6a64" }}
             />
             <Tooltip />
-            <Bar dataKey="库存" fill="#5db8a6" radius={[0, 4, 4, 0]} />
+            <Bar dataKey="库存" fill="#0088ff" radius={[0, 4, 4, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </Panel>

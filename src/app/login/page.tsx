@@ -11,16 +11,18 @@ export default function LoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-canvas px-4">
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
-          <div className="mb-2 flex items-center justify-center gap-2">
-            <span className="text-primary text-2xl leading-none">✳</span>
-            <h1 className="font-display text-3xl text-ink">闲鱼一元小店</h1>
+          <div className="mb-3 flex items-center justify-center gap-2.5">
+            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-surface-dark text-base font-semibold text-on-dark">
+              中
+            </span>
+            <h1 className="font-display text-2xl text-ink">AI 中台</h1>
           </div>
-          <p className="text-sm text-muted">商品中台 · 请登录</p>
+          <p className="text-sm text-muted">一元小店 · 请登录</p>
         </div>
 
         <form
           action={formAction}
-          className="rounded-xl border border-hairline bg-white p-6 shadow-[0_1px_3px_rgba(20,20,19,0.05)]"
+          className="rounded-2xl border border-hairline bg-white p-7 shadow-[0_3px_8px_rgba(0,0,0,0.08)]"
         >
           <div className="mb-4">
             <Label htmlFor="email">邮箱</Label>
