@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { Plus } from "lucide-react";
 import { listProducts } from "@/lib/products";
 import { PageHeader } from "@/components/page-header";
 import { Button } from "@/components/ui";
+import { Plus } from "@/components/icons";
 import { ProductList } from "./product-list";
 
 export const dynamic = "force-dynamic";
@@ -24,7 +24,7 @@ export default async function ProductsPage() {
           </Link>
         }
       />
-      <div className="p-8">
+      <div className="mx-auto max-w-4xl px-6 py-6">
         <ProductList products={products} />
       </div>
     </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { X, Sparkles } from "lucide-react";
+import { X, Sparkles } from "@/components/icons";
 import { cn } from "@/lib/utils";
 import { Assistant } from "@/app/(dashboard)/assistant/assistant";
 

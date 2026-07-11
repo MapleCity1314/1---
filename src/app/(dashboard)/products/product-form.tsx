@@ -4,7 +4,7 @@ import { useActionState, useState } from "react";
 import Link from "next/link";
 import { deriveProfit, money, pct } from "@/lib/utils";
 import { PRODUCT_STATUSES, type Product } from "@/lib/types";
-import { FileDown } from "lucide-react";
+import { FileDown } from "@/components/icons";
 import { Button, Input, Textarea, Select, Label } from "@/components/ui";
 import { ImageUpload } from "@/components/image-upload";
 

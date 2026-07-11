@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useRef, useState } from "react";
-import { ImagePlus, X, Loader2, ImageOff } from "lucide-react";
+import { ImagePlus, X, Loader, ImageOff } from "@/components/icons";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 
@@ -140,7 +140,7 @@ export function ImageUpload({
         >
           {uploading ? (
             <>
-              <Loader2 size={18} className="animate-spin" />
+              <Loader size={18} className="animate-spin" />
               上传中…
             </>
           ) : (

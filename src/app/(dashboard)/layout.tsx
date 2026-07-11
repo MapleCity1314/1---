@@ -19,7 +19,7 @@ export default async function DashboardLayout({
 
   return (
     <ChatProvider>
-      <div className="flex h-screen overflow-hidden">
+      <div className="flex h-screen overflow-hidden bg-canvas">
         <Sidebar email={user.email ?? ""} />
         <main className="relative flex-1 overflow-auto pb-14 lg:pb-0">
           {children}

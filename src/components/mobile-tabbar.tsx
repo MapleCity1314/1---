@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Package, Sparkles } from "lucide-react";
+import { Grid, Box, Sparkles } from "@/components/icons";
 import { cn } from "@/lib/utils";
 
 const tabs = [
-  { href: "/", label: "面板", icon: LayoutDashboard },
-  { href: "/products", label: "商品", icon: Package },
+  { href: "/", label: "面板", icon: Grid },
+  { href: "/products", label: "商品", icon: Box },
   { href: "/assistant", label: "AI 助手", icon: Sparkles },
 ];
 

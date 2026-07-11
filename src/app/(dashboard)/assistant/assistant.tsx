@@ -10,8 +10,8 @@ import {
   Sparkles,
   Wrench,
   AlertTriangle,
-  Trash2,
-} from "lucide-react";
+  Trash,
+} from "@/components/icons";
 import { Button } from "@/components/ui";
 import { cn } from "@/lib/utils";
 import { useSharedChatInstance, clearStoredChat } from "../chat-provider";
@@ -95,14 +95,14 @@ export function Assistant() {
                 disabled={busy}
                 className="flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs text-muted hover:bg-surface-card hover:text-ink disabled:opacity-50"
               >
-                <Trash2 size={13} />
+                <Trash size={13} />
                 清空对话
               </button>
             </div>
           )}
 
           {messages.length === 0 && (
-            <div className="rounded-xl border border-hairline bg-white p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+            <div className="rounded-2xl border border-hairline bg-white p-6 card-shadow">
               <div className="mb-3 flex items-center gap-2 text-secondary">
                 <Sparkles size={18} />
                 <span className="font-medium text-ink">试试这样问我</span>

@@ -1,20 +1,22 @@
-import { LayoutDashboard, Package, type LucideIcon } from "lucide-react";
+import { Grid, Box } from "@/components/icons";
 
 /**
  * 中台业务模块注册表。
  * 一元小店是首个模块；未来新增业务时在这里追加一个条目即可，
  * 侧栏的模块切换器与导航会自动跟随。每个模块自带一组导航项。
  */
+type IconComponent = (props: { size?: number; className?: string }) => React.ReactElement;
+
 export interface ModuleNavItem {
   href: string;
   label: string;
-  icon: LucideIcon;
+  icon: IconComponent;
 }
 
 export interface BusinessModule {
   id: string;
   name: string;
-  /** 单字/emoji 标记，显示在切换器与 logo 附近 */
+  /** 头像文字标记，显示在切换器里 */
   glyph: string;
   /** 该模块的落地路由（点击模块切换器时跳转） */
   home: string;
@@ -30,8 +32,8 @@ export const MODULES: BusinessModule[] = [
     home: "/",
     enabled: true,
     nav: [
-      { href: "/", label: "观测面板", icon: LayoutDashboard },
-      { href: "/products", label: "商品管理", icon: Package },
+      { href: "/", label: "观测面板", icon: Grid },
+      { href: "/products", label: "商品管理", icon: Box },
     ],
   },
 ];

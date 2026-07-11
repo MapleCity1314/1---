@@ -18,8 +18,10 @@ export default async function EditProductPage({
   return (
     <div>
       <PageHeader title="编辑商品" subtitle={`${product.id} · ${product.title}`} />
-      <div className="p-8">
-        <ProductForm product={product} action={updateProductAction} mode="edit" />
+      <div className="mx-auto max-w-4xl px-6 py-6">
+        <div className="rounded-[22px] border border-hairline bg-white p-7 card-shadow">
+          <ProductForm product={product} action={updateProductAction} mode="edit" />
+        </div>
       </div>
     </div>
   );

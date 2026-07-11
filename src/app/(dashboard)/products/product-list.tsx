@@ -4,18 +4,19 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import {
   Pencil,
-  Trash2,
+  Trash,
   ExternalLink,
   Copy,
   Check,
   LayoutGrid,
   List,
   ArrowUpDown,
-} from "lucide-react";
+} from "@/components/icons";
 import type { Product } from "@/lib/types";
 import { PRODUCT_STATUSES } from "@/lib/types";
 import { money, pct, cn } from "@/lib/utils";
 import { Input, Select, StatusPill } from "@/components/ui";
+import { Search } from "@/components/icons";
 import { deleteProductAction } from "./actions";
 
 type SortKey = "updated_at" | "price" | "profit" | "stock" | "profit_rate";
@@ -75,12 +76,18 @@ export function ProductList({ products }: { products: Product[] }) {
     <div>
       {/* 工具栏 */}
       <div className="mb-4 flex flex-wrap items-center gap-2.5">
-        <Input
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-          placeholder="搜索编号 / 标题 / 备注"
-          className="w-64"
-        />
+        <div className="relative w-64">
+          <Search
+            size={16}
+            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted-soft"
+          />
+          <Input
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="搜索编号 / 标题 / 备注"
+            className="pl-9"
+          />
+        </div>
         <Select value={cat} onChange={(e) => setCat(e.target.value)}>
           <option value="">全部分类</option>
           {categories.map((c) => (
@@ -121,7 +128,7 @@ export function ProductList({ products }: { products: Product[] }) {
       </div>
 
       {filtered.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-hairline bg-white py-20 text-center text-muted">
+        <div className="rounded-[22px] border border-dashed border-hairline-strong bg-white py-20 text-center text-muted card-shadow">
           没有匹配的商品
         </div>
       ) : view === "table" ? (
@@ -231,7 +238,7 @@ function DeleteButton({ id, title }: { id: string; title: string }) {
         className="flex h-8 w-8 items-center justify-center rounded-md text-muted hover:bg-error/10 hover:text-error"
         title="删除"
       >
-        <Trash2 size={15} />
+        <Trash size={15} />
       </button>
     </form>
   );
@@ -253,7 +260,7 @@ function TableView({
   copied: string | null;
 }) {
   return (
-    <div className="overflow-auto rounded-xl border border-hairline bg-white">
+    <div className="overflow-auto rounded-[22px] border border-hairline bg-white card-shadow">
       <table className="w-full text-sm whitespace-nowrap">
         <thead>
           <tr className="border-b border-hairline bg-surface-soft text-left">
@@ -354,7 +361,7 @@ function CardView({
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
       {rows.map((p) => (
-        <div key={p.id} className="rounded-xl border border-hairline bg-white p-5 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+        <div key={p.id} className="rounded-2xl border border-hairline bg-white p-5 card-shadow">
           <div className="mb-2 flex items-start justify-between gap-2">
             <div className="min-w-0">
               <div className="font-mono text-xs text-muted">{p.id}</div>
