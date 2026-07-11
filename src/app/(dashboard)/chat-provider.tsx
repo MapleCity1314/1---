@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { Chat, useChat } from "@ai-sdk/react";
 import {
   DefaultChatTransport,
@@ -41,7 +41,10 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
     () =>
       new Chat<UIMessage>({
         transport: new DefaultChatTransport({ api: "/api/chat" }),
-        messages: loadStoredMessages(),
+        // 服务端渲染时没有 localStorage，这里必须留空，否则客户端首帧带着历史
+        // 消息去 hydrate 会和服务端的空对话对不上（React #418）。历史消息改到
+        // 挂载后由下方 useEffect 补进来。
+        messages: [],
         // 写操作（needsApproval）走人工确认：用户点「确认执行」后，approval
         // 只是被写进本地消息里。必须在这里配置——当最后一条 assistant 消息的
         // 待批操作都有了响应时，自动把消息重新提交给 /api/chat，服务端才会真正
@@ -52,9 +55,20 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   );
 
   // 在 Provider 层订阅一次消息变化并持久化，不依赖 /assistant 页面是否挂载。
-  const { messages } = useChat({ chat });
+  const { messages, setMessages } = useChat({ chat });
+
+  // 挂载后再从 localStorage 恢复历史消息（避免 SSR/hydration 不一致）。
+  // hydrated 在恢复完成前拦住持久化，防止「首帧空对话」把已存的历史覆盖掉。
+  const hydrated = useRef(false);
 
   useEffect(() => {
+    const stored = loadStoredMessages();
+    if (stored.length > 0) setMessages(stored);
+    hydrated.current = true;
+  }, [setMessages]);
+
+  useEffect(() => {
+    if (!hydrated.current) return;
     try {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
     } catch {

@@ -3,18 +3,10 @@
 import * as React from "react";
 import { useRef, useState } from "react";
 import { ImagePlus, X, Loader, ImageOff } from "@/components/icons";
-import { createClient } from "@/lib/supabase/client";
+import { ACCEPTED_IMAGE_TYPES, uploadImage } from "@/lib/upload";
 import { cn } from "@/lib/utils";
 
-const BUCKET = "product-images";
-const MAX_SIZE_MB = 8;
-const ACCEPTED = ["image/jpeg", "image/png", "image/webp", "image/gif"];
-
-function extFromFile(file: File): string {
-  const fromName = file.name.split(".").pop();
-  if (fromName && fromName.length <= 5) return fromName.toLowerCase();
-  return file.type.split("/")[1] || "jpg";
-}
+const ACCEPTED = ACCEPTED_IMAGE_TYPES;
 
 /**
  * 商品图片上传：支持点击选择 / 拖拽 / 粘贴，直接把文件上传到 Supabase
@@ -37,31 +29,11 @@ export function ImageUpload({
 
   async function upload(file: File) {
     setError(null);
-    if (!ACCEPTED.includes(file.type)) {
-      setError("仅支持 JPG / PNG / WEBP / GIF 图片");
-      return;
-    }
-    if (file.size > MAX_SIZE_MB * 1024 * 1024) {
-      setError(`图片不能超过 ${MAX_SIZE_MB}MB`);
-      return;
-    }
-
     setUploading(true);
-    try {
-      const supabase = createClient();
-      const path = `${productId || "new"}/${Date.now()}.${extFromFile(file)}`;
-      const { error: uploadError } = await supabase.storage
-        .from(BUCKET)
-        .upload(path, file, { cacheControl: "3600", upsert: false });
-      if (uploadError) throw uploadError;
-
-      const { data } = supabase.storage.from(BUCKET).getPublicUrl(path);
-      setUrl(data.publicUrl);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "上传失败，请重试");
-    } finally {
-      setUploading(false);
-    }
+    const res = await uploadImage(file, productId || "new");
+    if (res.ok) setUrl(res.url);
+    else setError(res.error);
+    setUploading(false);
   }
 
   function handleFiles(files: FileList | null) {

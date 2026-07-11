@@ -231,6 +231,15 @@ function ImagePlus(p: IconProps) {
   );
 }
 
+// 回形针 / 添加附件
+function Paperclip(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path d="M21 11.5 12.5 20a5 5 0 0 1-7-7l8.5-8.5a3.3 3.3 0 0 1 4.7 4.7l-8.5 8.5a1.7 1.7 0 0 1-2.4-2.4l7.8-7.8" />
+    </Svg>
+  );
+}
+
 // 加载中（旋转由 className animate-spin 控制）
 function Loader(p: IconProps) {
   return (
@@ -330,6 +339,7 @@ export {
   ArrowUpDown,
   Search,
   ImagePlus,
+  Paperclip,
   Loader,
   ImageOff,
   FileDown,
