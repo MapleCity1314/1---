@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "excel": {
+      "source": "sundial-org/awesome-openclaw-skills",
+      "sourceType": "github",
+      "skillPath": "skills/excel/SKILL.md",
+      "computedHash": "da064668782679dfc81dad4c08d8af78d3fb2e33b0e9a7a1226cf801ce1c6196"
+    }
+  }
+}
