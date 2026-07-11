@@ -2,7 +2,11 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 import { Chat, useChat } from "@ai-sdk/react";
-import { DefaultChatTransport, type UIMessage } from "ai";
+import {
+  DefaultChatTransport,
+  lastAssistantMessageIsCompleteWithApprovalResponses,
+  type UIMessage,
+} from "ai";
 
 const STORAGE_KEY = "xianyu-chat-messages";
 
@@ -38,6 +42,12 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
       new Chat<UIMessage>({
         transport: new DefaultChatTransport({ api: "/api/chat" }),
         messages: loadStoredMessages(),
+        // 写操作（needsApproval）走人工确认：用户点「确认执行」后，approval
+        // 只是被写进本地消息里。必须在这里配置——当最后一条 assistant 消息的
+        // 待批操作都有了响应时，自动把消息重新提交给 /api/chat，服务端才会真正
+        // 执行工具的 execute（如商品入库）并继续流式输出。缺了这一步，点确认后
+        // 智能体会静默停下、商品也不会入库。
+        sendAutomaticallyWhen: lastAssistantMessageIsCompleteWithApprovalResponses,
       }),
   );
 
