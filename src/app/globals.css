@@ -1,35 +1,34 @@
 @import "tailwindcss";
 
-/* ── Tavily 还原风 ──
- * 暖米色整页背景，白色卡片浮于其上；侧栏与背景同底，靠白色小卡/胶囊分层。
- * 近黑主色作 CTA 锚点，蓝色留给 active 导航 / 链接，绿色留给运行状态。
- * 组件全部走这套语义 token，改这里即批量生效。 */
+/* .dark 作用域可用 dark: 前缀（少数需精调处用；主要靠变量覆盖切换） */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ── Tavily 还原风（含暗色）──
+ * 浅色：暖米底 + 纯白卡；暗色：近黑底 + 深灰卡。
+ * 组件表面统一走 --color-card / --color-canvas 等语义 token，
+ * 切换主题只需在 .dark 覆盖变量，全站自动生效。 */
 @theme {
-  /* 整页与侧栏：暖米色。卡片：纯白 */
   --color-canvas: #f4f3ec;
+  --color-card: #ffffff;
   --color-surface-soft: #efeee6;
   --color-surface-card: #e9e8df;
   --color-surface-strong: #e2e0d5;
   --color-surface-dark: #1f1e1e;
   --color-surface-dark-elevated: #2d2d2d;
 
-  /* 主色：近黑，用于主 CTA / 关键交互 */
   --color-primary: #1f1e1e;
   --color-primary-active: #3f3f3f;
   --color-primary-disabled: #cfcdc4;
+  --color-on-primary: #ffffff;
 
-  /* 次要蓝：active 导航 / 链接 / 次要动作 */
   --color-secondary: #0088ff;
   --color-secondary-active: #0059d6;
-  /* 组织切换器 periwinkle */
   --color-switcher: #e8ecfd;
   --color-switcher-ink: #3b5bdb;
 
-  /* 强调色 */
   --color-teal: #13a688;
   --color-amber: #e8a55a;
 
-  /* 文本层级 */
   --color-ink: #1f1e1e;
   --color-body-strong: #29282a;
   --color-body: #44454b;
@@ -38,12 +37,10 @@
   --color-on-dark: #ffffff;
   --color-on-dark-soft: #b9bcc4;
 
-  /* 分隔线（白卡上的细线） */
   --color-hairline: #ebe9e0;
   --color-hairline-strong: #e0ded3;
   --color-hairline-soft: #f0efe8;
 
-  /* 语义状态 */
   --color-success: #16a34a;
   --color-warning: #d4a017;
   --color-error: #d03c38;
@@ -51,11 +48,47 @@
   --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI",
     "Microsoft YaHei", Roboto, Helvetica, sans-serif;
 
-  /* 圆角：卡片走大圆角(xl)，交互元素走 pill(full) */
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 14px;
   --radius-xl: 22px;
+}
+
+/* ── 暗色覆盖（照截图：近黑底、深灰面板/卡、亮蓝 active）── */
+.dark {
+  --color-canvas: #0e0e10;
+  --color-card: #171719;
+  --color-surface-soft: #1c1c1f;
+  --color-surface-card: #232326;
+  --color-surface-strong: #2a2a2e;
+  --color-surface-dark: #3a3a3f;
+  --color-surface-dark-elevated: #45454b;
+
+  --color-primary: #ffffff;
+  --color-primary-active: #e2e2e5;
+  --color-primary-disabled: #3a3a3f;
+  --color-on-primary: #1f1e1e;
+
+  --color-secondary: #4aa3ff;
+  --color-secondary-active: #7dbcff;
+  --color-switcher: #2a2c33;
+  --color-switcher-ink: #cdd4ff;
+
+  --color-ink: #f4f4f5;
+  --color-body-strong: #e6e6e8;
+  --color-body: #c4c5cb;
+  --color-muted: #8e9099;
+  --color-muted-soft: #6a6c74;
+  --color-on-dark: #f4f4f5;
+  --color-on-dark-soft: #a0a0a8;
+
+  --color-hairline: #2a2a2e;
+  --color-hairline-strong: #333338;
+  --color-hairline-soft: #232326;
+
+  --color-success: #22c55e;
+  --color-warning: #eab308;
+  --color-error: #f87171;
 }
 
 html {
@@ -74,7 +107,7 @@ body {
   height: 10px;
 }
 *::-webkit-scrollbar-thumb {
-  background: #d6d3c8;
+  background: color-mix(in srgb, var(--color-muted) 40%, transparent);
   border-radius: 999px;
   border: 2px solid transparent;
   background-clip: padding-box;
@@ -83,14 +116,23 @@ body {
   background: transparent;
 }
 
-/* 单一 sans 字族，用字号/字重建立层级 */
 .font-display {
   font-family: var(--font-sans);
   letter-spacing: -0.02em;
   font-weight: 700;
 }
 
-/* 卡片统一阴影（极淡，Tavily 风） */
+/* 卡片阴影（浅色淡投影；暗色几乎无投影，靠描边分层） */
 .card-shadow {
   box-shadow: 0 1px 2px rgba(31, 30, 30, 0.04), 0 4px 16px rgba(31, 30, 30, 0.04);
+}
+.dark .card-shadow {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* 玻璃质感顶栏：半透明 + 背景模糊 + 底部渐隐 */
+.glass-bar {
+  background: color-mix(in srgb, var(--color-canvas) 72%, transparent);
+  backdrop-filter: saturate(140%) blur(12px);
+  -webkit-backdrop-filter: saturate(140%) blur(12px);
 }

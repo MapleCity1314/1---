@@ -6,9 +6,9 @@ import { cn } from "@/lib/utils";
 type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
 const buttonStyles: Record<ButtonVariant, string> = {
   primary:
-    "bg-primary text-on-dark shadow-sm hover:bg-primary-active disabled:bg-primary-disabled disabled:text-white disabled:shadow-none",
+    "bg-primary text-on-primary shadow-sm hover:bg-primary-active disabled:bg-primary-disabled disabled:text-muted disabled:shadow-none",
   secondary:
-    "bg-white text-ink border border-hairline hover:bg-surface-card hover:border-muted-soft disabled:opacity-50",
+    "bg-card text-ink border border-hairline hover:bg-surface-card hover:border-muted-soft disabled:opacity-50",
   ghost: "text-body hover:bg-surface-card disabled:opacity-50",
   danger: "bg-error text-white hover:brightness-90 disabled:opacity-50",
 };
@@ -39,7 +39,7 @@ export const Input = React.forwardRef<
     <input
       ref={ref}
       className={cn(
-        "h-9 w-full rounded-md border border-hairline bg-white px-3 text-sm text-ink outline-none placeholder:text-muted-soft focus:border-primary focus:ring-2 focus:ring-primary/15",
+        "h-9 w-full rounded-md border border-hairline bg-card px-3 text-sm text-ink outline-none placeholder:text-muted-soft focus:border-primary focus:ring-2 focus:ring-primary/15",
         className,
       )}
       {...props}
@@ -56,7 +56,7 @@ export const Textarea = React.forwardRef<
     <textarea
       ref={ref}
       className={cn(
-        "w-full rounded-md border border-hairline bg-white px-3 py-2 text-sm text-ink outline-none placeholder:text-muted-soft focus:border-primary focus:ring-2 focus:ring-primary/15",
+        "w-full rounded-md border border-hairline bg-card px-3 py-2 text-sm text-ink outline-none placeholder:text-muted-soft focus:border-primary focus:ring-2 focus:ring-primary/15",
         className,
       )}
       {...props}
@@ -73,7 +73,7 @@ export const Select = React.forwardRef<
     <select
       ref={ref}
       className={cn(
-        "h-9 rounded-md border border-hairline bg-white px-3 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/15",
+        "h-9 rounded-md border border-hairline bg-card px-3 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/15",
         className,
       )}
       {...props}
@@ -101,7 +101,7 @@ export function Card({ className, ...props }: React.HTMLAttributes<HTMLDivElemen
   return (
     <div
       className={cn(
-        "rounded-xl border border-hairline bg-white p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04)]",
+        "rounded-xl border border-hairline bg-card p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04)]",
         className,
       )}
       {...props}

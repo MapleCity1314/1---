@@ -22,7 +22,7 @@ export default function LoginPage() {
 
         <form
           action={formAction}
-          className="rounded-2xl border border-hairline bg-white p-7 shadow-[0_3px_8px_rgba(0,0,0,0.08)]"
+          className="rounded-2xl border border-hairline bg-card p-7 shadow-[0_3px_8px_rgba(0,0,0,0.08)]"
         >
           <div className="mb-4">
             <Label htmlFor="email">邮箱</Label>

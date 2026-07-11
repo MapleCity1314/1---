@@ -102,7 +102,7 @@ export function Assistant() {
           )}
 
           {messages.length === 0 && (
-            <div className="rounded-2xl border border-hairline bg-white p-6 card-shadow">
+            <div className="rounded-2xl border border-hairline bg-card p-6 card-shadow">
               <div className="mb-3 flex items-center gap-2 text-secondary">
                 <Sparkles size={18} />
                 <span className="font-medium text-ink">试试这样问我</span>
@@ -112,7 +112,7 @@ export function Assistant() {
                   <button
                     key={s}
                     onClick={() => submit(s)}
-                    className="rounded-full border border-hairline bg-white px-3.5 py-1.5 text-sm text-body transition-colors hover:border-secondary hover:text-secondary"
+                    className="rounded-full border border-hairline bg-card px-3.5 py-1.5 text-sm text-body transition-colors hover:border-secondary hover:text-secondary"
                   >
                     {s}
                   </button>
@@ -149,7 +149,7 @@ export function Assistant() {
           }}
           className="mx-auto max-w-3xl"
         >
-          <div className="flex items-end gap-2 rounded-2xl border border-hairline bg-white p-2 shadow-sm focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/15">
+          <div className="flex items-end gap-2 rounded-2xl border border-hairline bg-card p-2 shadow-sm focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/15">
             <textarea
               ref={textareaRef}
               rows={1}
@@ -208,7 +208,7 @@ function Message({
                   "whitespace-pre-wrap rounded-lg px-4 py-2.5 text-sm leading-relaxed",
                   isUser
                     ? "bg-surface-dark text-on-dark"
-                    : "border border-hairline bg-white text-body",
+                    : "border border-hairline bg-card text-body",
                 )}
               >
                 {part.text}
@@ -264,7 +264,7 @@ function ToolPart({
           <AlertTriangle size={16} />
           确认操作：{label}
         </div>
-        <pre className="mb-3 max-h-56 overflow-auto rounded-md bg-white p-3 text-xs text-body">
+        <pre className="mb-3 max-h-56 overflow-auto rounded-md bg-card p-3 text-xs text-body">
           {JSON.stringify(part.input, null, 2)}
         </pre>
         <div className="flex gap-2">

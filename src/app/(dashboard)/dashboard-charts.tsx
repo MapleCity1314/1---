@@ -20,7 +20,7 @@ const PALETTE = ["#1f1e1e", "#0088ff", "#13a688", "#e8a55a", "#65676e", "#0059d6
 
 function Panel({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-[22px] border border-hairline bg-white p-6 card-shadow">
+    <div className="rounded-[22px] border border-hairline bg-card p-6 card-shadow">
       <h3 className="mb-4 text-sm font-medium text-body-strong">{title}</h3>
       {children}
     </div>

@@ -24,7 +24,7 @@ export default async function ProductsPage() {
           </Link>
         }
       />
-      <div className="mx-auto max-w-4xl px-6 py-6">
+      <div className="mx-auto max-w-5xl px-8 py-7">
         <ProductList products={products} />
       </div>
     </div>

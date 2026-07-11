@@ -26,16 +26,16 @@ export default async function DashboardPage() {
         title="观测面板"
         subtitle="库存与利润的实时概览"
         status={
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-medium text-body card-shadow">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-card px-3 py-1.5 text-xs font-medium text-body card-shadow">
             <span className="h-2 w-2 rounded-full bg-success" />
             运行中
           </span>
         }
       />
 
-      <div className="mx-auto max-w-4xl space-y-4 px-6 py-6">
+      <div className="mx-auto max-w-5xl space-y-4 px-8 py-7">
         {/* Hero 渐变卡：核心利润 + 营收进度 + 主按钮 */}
-        <div className="relative overflow-hidden rounded-[22px] border border-hairline bg-white p-7 card-shadow">
+        <div className="relative overflow-hidden rounded-[22px] border border-hairline bg-card p-7 card-shadow">
           <div
             className="pointer-events-none absolute inset-0"
             style={{
@@ -90,7 +90,7 @@ export default async function DashboardPage() {
           {cards.map((c) => (
             <div
               key={c.label}
-              className="rounded-2xl border border-hairline bg-white p-4 card-shadow"
+              className="rounded-2xl border border-hairline bg-card p-4 card-shadow"
             >
               <div className="text-xs font-medium text-muted">{c.label}</div>
               <div className={`mt-2 font-display text-2xl ${c.tone}`}>
@@ -101,7 +101,7 @@ export default async function DashboardPage() {
         </div>
 
         {products.length === 0 ? (
-          <div className="rounded-[22px] border border-dashed border-hairline-strong bg-white py-20 text-center text-muted card-shadow">
+          <div className="rounded-[22px] border border-dashed border-hairline-strong bg-card py-20 text-center text-muted card-shadow">
             还没有商品数据。先去
             <Link href="/products/new" className="text-secondary hover:underline">
               新增商品

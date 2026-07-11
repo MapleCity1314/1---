@@ -19,7 +19,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-CN" className={`${inter.variable} h-full`}>
+    <html lang="zh-CN" className={`${inter.variable} h-full`} suppressHydrationWarning>
+      <head>
+        <script
+          // 挂载前根据 localStorage / 系统偏好设好 .dark，避免刷新时闪一下浅色
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');var d=t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;if(d)document.documentElement.classList.add('dark');}catch(e){}})();`,
+          }}
+        />
+      </head>
       <body className="min-h-full">{children}</body>
     </html>
   );

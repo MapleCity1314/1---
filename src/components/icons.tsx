@@ -261,11 +261,40 @@ function FileDown(p: IconProps) {
   );
 }
 
-// 月亮 / 主题切换（装饰）
+// 月亮 / 切到暗色
 function Moon(p: IconProps) {
   return (
     <Svg {...p}>
       <path d="M20 14.5A8 8 0 0 1 9.5 4 7 7 0 1 0 20 14.5Z" />
+    </Svg>
+  );
+}
+
+// 太阳 / 切到浅色
+function Sun(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+    </Svg>
+  );
+}
+
+// GitHub（装饰社交图标）
+function Github(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path d="M9 19c-4 1.4-4-2-6-2.5M15 21v-3.4a3 3 0 0 0-.8-2.3c2.7-.3 5.5-1.3 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.2s-1-.3-3.4 1.3a11.6 11.6 0 0 0-6 0C10.5 1 9.5 1.3 9.5 1.3a4.3 4.3 0 0 0-.1 3.2A4.6 4.6 0 0 0 8 7.7c0 4.6 2.8 5.7 5.5 6a3 3 0 0 0-.8 2.3V21" />
+    </Svg>
+  );
+}
+
+// 邮件（装饰）
+function Mail(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="M3.5 6.5 12 12.5 20.5 6.5" />
     </Svg>
   );
 }
@@ -305,6 +334,9 @@ export {
   ImageOff,
   FileDown,
   Moon,
+  Sun,
+  Github,
+  Mail,
   Store,
 };
 

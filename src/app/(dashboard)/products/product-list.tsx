@@ -108,7 +108,7 @@ export function ProductList({ products }: { products: Product[] }) {
             onClick={() => setView("table")}
             className={cn(
               "flex h-9 w-9 items-center justify-center",
-              view === "table" ? "bg-surface-dark text-on-dark" : "bg-white text-muted",
+              view === "table" ? "bg-surface-dark text-on-dark" : "bg-card text-muted",
             )}
             aria-label="表格视图"
           >
@@ -118,7 +118,7 @@ export function ProductList({ products }: { products: Product[] }) {
             onClick={() => setView("card")}
             className={cn(
               "flex h-9 w-9 items-center justify-center",
-              view === "card" ? "bg-surface-dark text-on-dark" : "bg-white text-muted",
+              view === "card" ? "bg-surface-dark text-on-dark" : "bg-card text-muted",
             )}
             aria-label="卡片视图"
           >
@@ -128,7 +128,7 @@ export function ProductList({ products }: { products: Product[] }) {
       </div>
 
       {filtered.length === 0 ? (
-        <div className="rounded-[22px] border border-dashed border-hairline-strong bg-white py-20 text-center text-muted card-shadow">
+        <div className="rounded-[22px] border border-dashed border-hairline-strong bg-card py-20 text-center text-muted card-shadow">
           没有匹配的商品
         </div>
       ) : view === "table" ? (
@@ -260,7 +260,7 @@ function TableView({
   copied: string | null;
 }) {
   return (
-    <div className="overflow-auto rounded-[22px] border border-hairline bg-white card-shadow">
+    <div className="overflow-auto rounded-[22px] border border-hairline bg-card card-shadow">
       <table className="w-full text-sm whitespace-nowrap">
         <thead>
           <tr className="border-b border-hairline bg-surface-soft text-left">
@@ -361,7 +361,7 @@ function CardView({
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
       {rows.map((p) => (
-        <div key={p.id} className="rounded-2xl border border-hairline bg-white p-5 card-shadow">
+        <div key={p.id} className="rounded-2xl border border-hairline bg-card p-5 card-shadow">
           <div className="mb-2 flex items-start justify-between gap-2">
             <div className="min-w-0">
               <div className="font-mono text-xs text-muted">{p.id}</div>

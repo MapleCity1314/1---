@@ -20,7 +20,7 @@ export function MobileTabBar() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-40 flex border-t border-hairline bg-white lg:hidden">
+    <nav className="fixed inset-x-0 bottom-0 z-40 flex border-t border-hairline bg-card lg:hidden">
       {tabs.map(({ href, label, icon: Icon }) => {
         const active = href === "/" ? pathname === "/" : pathname.startsWith(href);
         return (
