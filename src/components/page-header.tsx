@@ -17,7 +17,7 @@ export function PageHeader({
 }) {
   return (
     <div className="sticky top-0 z-20 px-6 pt-8">
-      <div className="glass-capsule mx-auto flex max-w-4xl items-center justify-between gap-5 rounded-full border border-hairline px-8 py-4">
+      <div className="glass-capsule flex items-center justify-between gap-5 rounded-full border border-hairline px-8 py-4">
         <h1 className="truncate font-display text-2xl leading-none text-ink">
           {title}
         </h1>
