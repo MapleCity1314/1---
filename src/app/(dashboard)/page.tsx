@@ -24,7 +24,6 @@ export default async function DashboardPage() {
     <div>
       <PageHeader
         title="观测面板"
-        subtitle="库存与利润的实时概览"
         status={
           <span className="inline-flex items-center gap-1.5 rounded-full bg-card px-3 py-1.5 text-xs font-medium text-body card-shadow">
             <span className="h-2 w-2 rounded-full bg-success" />

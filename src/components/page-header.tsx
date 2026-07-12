@@ -2,40 +2,25 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { Github, Mail } from "@/components/icons";
 
 /**
- * Tavily 还原顶栏：sticky 玻璃质感条（半透明+模糊+底部渐隐），
- * 左侧「面包屑 / 大标题」，右侧运行状态胶囊 + 实色背景图标按钮组 +
- * 主题切换。跨全宽，与下方内容用同一 px/max-w 对齐。
+ * 悬浮玻璃胶囊顶栏：与侧栏呼应的圆角面板语言，但收成
+ * rounded-full 的窄条，四周留白让它“浮”在画布上而不贴边。
+ * 左侧只留标题，右侧运行状态胶囊 + 实色图标按钮组 + 主题切换。
  */
 export function PageHeader({
   title,
-  subtitle,
-  breadcrumb = "一元小店",
   status,
   actions,
 }: {
   title: string;
-  subtitle?: string;
-  breadcrumb?: string;
   status?: React.ReactNode;
   actions?: React.ReactNode;
 }) {
   return (
-    <div className="glass-bar sticky top-0 z-20 border-b border-hairline">
-      <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-8 py-4">
-        {/* 左：面包屑 + 大标题 */}
-        <div className="min-w-0">
-          <div className="mb-0.5 flex items-center gap-1.5 text-xs">
-            <span className="text-muted">{breadcrumb}</span>
-            <span className="text-muted-soft">/</span>
-            <span className="text-body-strong">{title}</span>
-          </div>
-          <h1 className="truncate font-display text-[28px] leading-tight text-ink">
-            {title}
-          </h1>
-          {subtitle && (
-            <p className="mt-0.5 truncate text-sm text-muted">{subtitle}</p>
-          )}
-        </div>
+    <div className="sticky top-0 z-20 px-3 pt-3">
+      <div className="glass-capsule mx-auto flex max-w-5xl items-center justify-between gap-4 rounded-full border border-hairline px-5 py-2.5">
+        <h1 className="truncate font-display text-[16px] leading-none text-ink">
+          {title}
+        </h1>
 
         {/* 右：状态 + 实色图标按钮组 + 主题切换 + 动作 */}
         <div className="flex shrink-0 items-center gap-2.5">

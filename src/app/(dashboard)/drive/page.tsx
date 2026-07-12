@@ -19,11 +19,7 @@ export default async function DrivePage({
 
   return (
     <div>
-      <PageHeader
-        title="文档库"
-        subtitle={`共 ${nodes.length} 项`}
-        breadcrumb="平台"
-      />
+      <PageHeader title="文档库" />
       <div className="mx-auto max-w-5xl px-8 py-7">
         <DriveBrowser nodes={nodes} breadcrumb={breadcrumb} currentFolderId={parentId} />
       </div>

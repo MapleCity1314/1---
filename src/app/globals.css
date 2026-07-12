@@ -130,11 +130,22 @@ body {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
-/* 玻璃质感顶栏：半透明 + 背景模糊 + 底部渐隐 */
-.glass-bar {
-  background: color-mix(in srgb, var(--color-canvas) 72%, transparent);
-  backdrop-filter: saturate(140%) blur(12px);
-  -webkit-backdrop-filter: saturate(140%) blur(12px);
+/* 顶栏漂浮玻璃胶囊：强模糊 + 高光描边 + 分层投影，质感比普通卡片更“透” */
+.glass-capsule {
+  background: color-mix(in srgb, var(--color-card) 62%, transparent);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 1px 2px rgba(31, 30, 30, 0.06),
+    0 12px 28px rgba(31, 30, 30, 0.08);
+}
+.dark .glass-capsule {
+  background: color-mix(in srgb, var(--color-card) 55%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 1px 2px rgba(0, 0, 0, 0.4),
+    0 12px 28px rgba(0, 0, 0, 0.35);
 }
 
 /* AI 图片工坊：Dithering 着色器背景，硬件加速优化渲染 */

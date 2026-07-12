@@ -17,7 +17,7 @@ export default async function EditProductPage({
 
   return (
     <div>
-      <PageHeader title="编辑商品" subtitle={`${product.id} · ${product.title}`} />
+      <PageHeader title="编辑商品" />
       <div className="mx-auto max-w-5xl px-8 py-7">
         <div className="rounded-[22px] border border-hairline bg-card p-7 card-shadow">
           <ProductForm product={product} action={updateProductAction} mode="edit" />

@@ -14,7 +14,6 @@ export default async function ProductsPage() {
     <div>
       <PageHeader
         title="商品管理"
-        subtitle={`共 ${products.length} 件商品`}
         actions={
           <Link href="/products/new">
             <Button>
