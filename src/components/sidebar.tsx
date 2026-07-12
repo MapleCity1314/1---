@@ -20,29 +20,29 @@ export function Sidebar({ email }: { email: string }) {
   const initial = (email.trim()[0] || "U").toUpperCase();
 
   return (
-    <div className="hidden shrink-0 p-3 lg:block">
-      <aside className="flex h-full w-[236px] flex-col rounded-[26px] border border-hairline bg-card card-shadow">
+    <div className="hidden shrink-0 p-5 lg:block">
+      <aside className="flex h-full w-[272px] flex-col rounded-[28px] border border-hairline bg-card card-shadow">
         {/* 品牌 */}
-        <div className="flex items-center gap-2.5 px-5 py-5">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-surface-dark text-sm font-bold text-on-dark">
+        <div className="flex items-center gap-3 px-6 py-6">
+          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-surface-dark text-base font-bold text-on-dark">
             中
           </span>
-          <span className="font-display text-[17px] text-ink">AI 中台</span>
+          <span className="font-display text-xl text-ink">AI 中台</span>
         </div>
 
         {/* 工作区切换器：periwinkle 胶囊 */}
-        <div className="relative px-3 pb-3">
+        <div className="relative px-4 pb-4">
           <button
             onClick={() => setSwitcherOpen((v) => !v)}
-            className="flex w-full items-center gap-2 rounded-full bg-switcher px-2.5 py-2 text-left transition-opacity hover:opacity-90"
+            className="flex w-full items-center gap-2.5 rounded-full bg-switcher px-3 py-2.5 text-left transition-opacity hover:opacity-90"
           >
-            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-card text-xs font-semibold text-switcher-ink">
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-card text-sm font-semibold text-switcher-ink">
               {active.glyph}
             </span>
-            <span className="min-w-0 flex-1 truncate text-sm font-medium text-switcher-ink">
+            <span className="min-w-0 flex-1 truncate text-[15px] font-medium text-switcher-ink">
               {active.name}
             </span>
-            <ChevronsUpDown size={15} className="shrink-0 text-switcher-ink/70" />
+            <ChevronsUpDown size={16} className="shrink-0 text-switcher-ink/70" />
           </button>
 
           {switcherOpen && (
@@ -51,24 +51,24 @@ export function Sidebar({ email }: { email: string }) {
                 className="fixed inset-0 z-10"
                 onClick={() => setSwitcherOpen(false)}
               />
-              <div className="absolute inset-x-3 top-full z-20 mt-1.5 overflow-hidden rounded-xl border border-hairline bg-card py-1 shadow-lg">
+              <div className="absolute inset-x-4 top-full z-20 mt-1.5 overflow-hidden rounded-xl border border-hairline bg-card py-1 shadow-lg">
                 {MODULES.map((m) => (
                   <button
                     key={m.id}
                     onClick={() => setSwitcherOpen(false)}
-                    className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm hover:bg-surface-soft"
+                    className="flex w-full items-center gap-2.5 px-3.5 py-2.5 text-left text-[15px] hover:bg-surface-soft"
                   >
-                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-switcher text-xs font-semibold text-switcher-ink">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-switcher text-sm font-semibold text-switcher-ink">
                       {m.glyph}
                     </span>
                     <span className="min-w-0 flex-1 truncate text-ink">{m.name}</span>
                     {m.id === active.id && (
-                      <Check size={15} className="shrink-0 text-secondary" />
+                      <Check size={16} className="shrink-0 text-secondary" />
                     )}
                   </button>
                 ))}
-                <div className="mt-1 flex items-center gap-2 border-t border-hairline-soft px-3 py-2 text-sm text-muted-soft">
-                  <Plus size={15} />
+                <div className="mt-1 flex items-center gap-2.5 border-t border-hairline-soft px-3.5 py-2.5 text-[15px] text-muted-soft">
+                  <Plus size={16} />
                   更多业务 · 敬请期待
                 </div>
               </div>
@@ -76,10 +76,10 @@ export function Sidebar({ email }: { email: string }) {
           )}
         </div>
 
-        <div className="mx-3 mb-2 border-t border-hairline-soft" />
+        <div className="mx-4 mb-2 border-t border-hairline-soft" />
 
         {/* 导航 */}
-        <nav className="flex-1 px-3">
+        <nav className="flex-1 px-4">
           {active.nav.map(({ href, label, icon: Icon }) => {
             const isActive =
               href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -88,14 +88,14 @@ export function Sidebar({ email }: { email: string }) {
                 key={href}
                 href={href}
                 className={cn(
-                  "mb-0.5 flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+                  "mb-1 flex items-center gap-3.5 rounded-xl px-3.5 py-3 text-[15px] font-medium transition-colors",
                   isActive
                     ? "text-secondary"
                     : "text-body hover:bg-surface-soft",
                 )}
               >
                 <Icon
-                  size={18}
+                  size={20}
                   className={isActive ? "text-secondary" : "text-muted"}
                 />
                 {label}
@@ -107,14 +107,14 @@ export function Sidebar({ email }: { email: string }) {
           <Link
             href="/assistant"
             className={cn(
-              "mt-0.5 flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+              "mt-1 flex items-center gap-3.5 rounded-xl px-3.5 py-3 text-[15px] font-medium transition-colors",
               pathname.startsWith("/assistant")
                 ? "text-secondary"
                 : "text-body hover:bg-surface-soft",
             )}
           >
             <Sparkles
-              size={18}
+              size={20}
               className={
                 pathname.startsWith("/assistant") ? "text-secondary" : "text-muted"
               }
@@ -125,14 +125,14 @@ export function Sidebar({ email }: { email: string }) {
           <Link
             href="/studio"
             className={cn(
-              "mt-0.5 flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+              "mt-1 flex items-center gap-3.5 rounded-xl px-3.5 py-3 text-[15px] font-medium transition-colors",
               pathname.startsWith("/studio")
                 ? "text-secondary"
                 : "text-body hover:bg-surface-soft",
             )}
           >
             <ImagePlus
-              size={18}
+              size={20}
               className={
                 pathname.startsWith("/studio") ? "text-secondary" : "text-muted"
               }
@@ -143,14 +143,14 @@ export function Sidebar({ email }: { email: string }) {
           <Link
             href="/drive"
             className={cn(
-              "mt-0.5 flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+              "mt-1 flex items-center gap-3.5 rounded-xl px-3.5 py-3 text-[15px] font-medium transition-colors",
               pathname.startsWith("/drive")
                 ? "text-secondary"
                 : "text-body hover:bg-surface-soft",
             )}
           >
             <Folder
-              size={18}
+              size={20}
               className={
                 pathname.startsWith("/drive") ? "text-secondary" : "text-muted"
               }
@@ -160,13 +160,13 @@ export function Sidebar({ email }: { email: string }) {
         </nav>
 
         {/* 用户区 */}
-        <div className="mx-3 border-t border-hairline-soft" />
-        <div className="flex items-center gap-2.5 px-4 py-3.5">
-          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-surface-strong text-sm font-semibold text-body-strong">
+        <div className="mx-4 border-t border-hairline-soft" />
+        <div className="flex items-center gap-3 px-5 py-4.5">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-surface-strong text-[15px] font-semibold text-body-strong">
             {initial}
           </span>
           <span
-            className="min-w-0 flex-1 truncate text-xs text-muted"
+            className="min-w-0 flex-1 truncate text-sm text-muted"
             title={email}
           >
             {email}
@@ -176,9 +176,9 @@ export function Sidebar({ email }: { email: string }) {
               type="submit"
               aria-label="退出登录"
               title="退出登录"
-              className="flex h-7 w-7 items-center justify-center rounded-full text-muted transition-colors hover:bg-surface-soft hover:text-ink"
+              className="flex h-8 w-8 items-center justify-center rounded-full text-muted transition-colors hover:bg-surface-soft hover:text-ink"
             >
-              <LogOut size={16} />
+              <LogOut size={17} />
             </button>
           </form>
         </div>

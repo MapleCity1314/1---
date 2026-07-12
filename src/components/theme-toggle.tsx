@@ -40,9 +40,9 @@ export function ThemeToggle() {
       onClick={toggle}
       aria-label={dark ? "切换到浅色" : "切换到暗色"}
       title={dark ? "切换到浅色" : "切换到暗色"}
-      className="flex h-9 w-9 items-center justify-center rounded-full bg-surface-card text-body transition-colors hover:text-ink"
+      className="flex h-10 w-10 items-center justify-center rounded-full bg-surface-card text-body transition-colors hover:text-ink"
     >
-      {dark ? <Sun size={16} /> : <Moon size={16} />}
+      {dark ? <Sun size={18} /> : <Moon size={18} />}
     </button>
   );
 }
