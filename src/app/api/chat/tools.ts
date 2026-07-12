@@ -174,6 +174,37 @@ export const tools = {
     },
   }),
 
+  researchMarket: tool({
+    description:
+      "调研闲鱼某关键词/品类的市场行情，并行获取竞品定价、需求热度、在售竞争三组数据，供选品和定价决策用。",
+    inputSchema: z.object({
+      keyword: z.string().describe('要调研的关键词，如"四六级资料"、"PS教程资源包"'),
+      category: z.string().nullish().describe('可选分类，如"书籍"、"数码配件"'),
+    }),
+    execute: async ({ keyword, category }) => {
+      try {
+        const client = requireTavily();
+        const scope = category ? `${category} ${keyword}` : keyword;
+        const [pricing, demand, competition] = await Promise.all([
+          client.search(`闲鱼 ${scope} 价格 多少钱`, { maxResults: 5, searchDepth: "basic" }),
+          client.search(`${scope} 数字资料 资源 需求 热门`, { maxResults: 5, searchDepth: "basic" }),
+          client.search(`闲鱼 ${scope} 卖家 竞品 在售`, { maxResults: 5, searchDepth: "basic" }),
+        ]);
+        return {
+          ok: true,
+          keyword,
+          category: category ?? null,
+          pricing: pricing.results.map((r) => ({ title: r.title, url: r.url, content: r.content })),
+          demand: demand.results.map((r) => ({ title: r.title, url: r.url, content: r.content })),
+          competition: competition.results.map((r) => ({ title: r.title, url: r.url, content: r.content })),
+          researchedAt: new Date().toISOString(),
+        };
+      } catch (err) {
+        return { ok: false, message: `市场调研失败：${tavilyErrorMessage(err)}` };
+      }
+    },
+  }),
+
   // ── 联网工具：Tavily 全家桶，只读、自动执行 ──
   tavilySearch: tool({
     description:

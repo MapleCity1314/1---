@@ -35,6 +35,7 @@ const TOOL_LABELS: Record<string, string> = {
   updateProductRecord: "修改商品",
   deleteProductRecord: "删除商品",
   writeViralCopy: "写爆款文案",
+  researchMarket: "市场调研",
   tavilySearch: "联网搜索",
   tavilyExtract: "抓取网页内容",
   tavilyCrawl: "爬取网站",
