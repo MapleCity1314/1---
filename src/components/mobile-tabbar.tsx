@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Grid, Box, Sparkles } from "@/components/icons";
+import { Grid, Box, Sparkles, Folder } from "@/components/icons";
 import { cn } from "@/lib/utils";
 
 const tabs = [
   { href: "/", label: "面板", icon: Grid },
   { href: "/products", label: "商品", icon: Box },
+  { href: "/drive", label: "文档", icon: Folder },
   { href: "/assistant", label: "AI 助手", icon: Sparkles },
 ];
 

@@ -45,3 +45,26 @@ export interface DashboardMetrics {
   totalProfit: number;
   onSaleCount: number;
 }
+
+// 文档库节点（对应 Supabase drive_nodes 表，文件夹和文件同表）
+export type DriveNodeKind = "folder" | "file";
+
+export interface DriveNode {
+  id: string;
+  parent_id: string | null;
+  kind: DriveNodeKind;
+  name: string;
+  storage_path: string | null; // 仅文件
+  mime_type: string | null;
+  ext: string | null; // 小写扩展名，不含点
+  size: number | null; // 字节
+  created_at: string;
+  updated_at: string;
+  updated_by: string | null;
+}
+
+// 注册新文件记录时的可写字段
+export type DriveNodeInput = Pick<
+  DriveNode,
+  "name" | "parent_id" | "storage_path" | "mime_type" | "ext" | "size"
+>;
