@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { MODULES, resolveActiveModule } from "@/lib/modules";
-import { ChevronsUpDown, Check, Sparkles, Plus, LogOut } from "@/components/icons";
+import { ChevronsUpDown, Check, Sparkles, ImagePlus, Plus, LogOut } from "@/components/icons";
 
 /**
  * Tavily 还原侧栏：整块白/深灰胶囊面板（不是上下分离的小卡），
@@ -120,6 +120,24 @@ export function Sidebar({ email }: { email: string }) {
               }
             />
             AI 助手
+          </Link>
+
+          <Link
+            href="/studio"
+            className={cn(
+              "mt-0.5 flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+              pathname.startsWith("/studio")
+                ? "text-secondary"
+                : "text-body hover:bg-surface-soft",
+            )}
+          >
+            <ImagePlus
+              size={18}
+              className={
+                pathname.startsWith("/studio") ? "text-secondary" : "text-muted"
+              }
+            />
+            AI 绘图
           </Link>
         </nav>
 

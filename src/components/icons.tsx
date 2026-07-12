@@ -318,6 +318,165 @@ function Store(p: IconProps) {
     </Svg>
   );
 }
+// 齿轮 / 设置
+function Settings(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <circle cx="12" cy="12" r="3" />
+      <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.03 1.56V21a2 2 0 1 1-4 0v-.09A1.7 1.7 0 0 0 9 19.35a1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.65 15a1.7 1.7 0 0 0-1.56-1.03H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.65 9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.65a1.7 1.7 0 0 0 1.03-1.56V3a2 2 0 1 1 4 0v.09A1.7 1.7 0 0 0 15 4.65a1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.35 9a1.7 1.7 0 0 0 1.56 1.03H21a2 2 0 1 1 0 4h-.09A1.7 1.7 0 0 0 19.4 15Z" />
+    </Svg>
+  );
+}
+
+// 图钉 / 固定
+function Pin(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path d="M12 17v5" />
+      <path d="M8 3h8l-1 6 3 3v2H6v-2l3-3-1-6Z" />
+    </Svg>
+  );
+}
+
+// 图钉（取消固定）
+function PinOff(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path d="M2 2l20 20" />
+      <path d="M12 17v5" />
+      <path d="M9 3h7l-1 6 3 3v2h-3" />
+      <path d="M8.5 8.5 8 9l-1 6h4" />
+    </Svg>
+  );
+}
+
+// 放大 / 全屏
+function Maximize(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3" />
+    </Svg>
+  );
+}
+
+// 左箭头
+function ChevronLeft(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path d="M15 6 9 12l6 6" />
+    </Svg>
+  );
+}
+
+// 右箭头
+function ChevronRight(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path d="M9 6l6 6-6 6" />
+    </Svg>
+  );
+}
+
+// 下箭头
+function ChevronDown(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path d="M6 9l6 6 6-6" />
+    </Svg>
+  );
+}
+
+// 文件夹
+function Folder(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4.6l1.8 2H19.5A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5v-11Z" />
+    </Svg>
+  );
+}
+
+// 新建文件夹
+function FolderPlus(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4.6l1.8 2H19.5A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5v-11Z" />
+      <path d="M12 10.5v5M9.5 13h5" />
+    </Svg>
+  );
+}
+
+// 通用文件
+function File(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z" />
+      <path d="M14 3v5h5" />
+    </Svg>
+  );
+}
+
+// 文本文件
+function FileText(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z" />
+      <path d="M14 3v5h5" />
+      <path d="M9 13h6M9 16.5h6" />
+    </Svg>
+  );
+}
+
+// 表格文件
+function FileSpreadsheet(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z" />
+      <path d="M14 3v5h5" />
+      <path d="M8 12.5h8M8 16h8M11 12.5V19M14.5 12.5V19" />
+    </Svg>
+  );
+}
+
+// 幻灯片文件
+function FileSlides(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z" />
+      <path d="M14 3v5h5" />
+      <rect x="8" y="12" width="8" height="5" rx="1" />
+    </Svg>
+  );
+}
+
+// 上传
+function Upload(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path d="M12 16V4M8 8l4-4 4 4" />
+      <path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" />
+    </Svg>
+  );
+}
+
+// 下载
+function Download(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path d="M12 4v12M8 12l4 4 4-4" />
+      <path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" />
+    </Svg>
+  );
+}
+
+// 更多操作（横向省略号）
+function MoreHorizontal(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path d="M5 12h.01M12 12h.01M19 12h.01" strokeWidth={(p.strokeWidth ?? 1.75) * 1.6} />
+    </Svg>
+  );
+}
+
 export {
   Grid,
   Box,
@@ -348,6 +507,22 @@ export {
   Github,
   Mail,
   Store,
+  Settings,
+  Pin,
+  PinOff,
+  Maximize,
+  ChevronLeft,
+  ChevronRight,
+  ChevronDown,
+  Folder,
+  FolderPlus,
+  File,
+  FileText,
+  FileSpreadsheet,
+  FileSlides,
+  Upload,
+  Download,
+  MoreHorizontal,
 };
 
 

@@ -136,3 +136,12 @@ body {
   backdrop-filter: saturate(140%) blur(12px);
   -webkit-backdrop-filter: saturate(140%) blur(12px);
 }
+
+/* AI 图片工坊：Dithering 着色器背景，硬件加速优化渲染 */
+.shader-background {
+  contain: layout style paint;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
