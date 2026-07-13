@@ -29,13 +29,6 @@ export async function POST(req: Request) {
     return Response.json({ error: "未登录" }, { status: 401 });
   }
 
-  if (!process.env.AI_GATEWAY_API_KEY) {
-    return Response.json(
-      { error: "未配置 AI_GATEWAY_API_KEY，图片生成不可用" },
-      { status: 500 },
-    );
-  }
-
   let body: GenerateBody;
   try {
     body = await req.json();
@@ -49,6 +42,21 @@ export async function POST(req: Request) {
   }
   if (!body.model || !MODEL_IDS.includes(body.model)) {
     return Response.json({ error: "未知的模型" }, { status: 400 });
+  }
+
+  // gpt-image-2 走独立的 OPENAI_API_KEY/OPENAI_BASE_URL 中转，不占用 AI Gateway。
+  const usesDirectOpenAi = body.model === "openai/gpt-image-2";
+  if (usesDirectOpenAi && !process.env.OPENAI_API_KEY) {
+    return Response.json(
+      { error: "未配置 OPENAI_API_KEY，GPT Image 2 不可用" },
+      { status: 500 },
+    );
+  }
+  if (!usesDirectOpenAi && !process.env.AI_GATEWAY_API_KEY) {
+    return Response.json(
+      { error: "未配置 AI_GATEWAY_API_KEY，图片生成不可用" },
+      { status: 500 },
+    );
   }
   if (body.mode === "image-editing" && !body.image1DataUrl) {
     return Response.json({ error: "编辑模式需要至少一张图片" }, { status: 400 });
@@ -64,7 +72,7 @@ export async function POST(req: Request) {
       resolution: body.resolution ?? "1K",
       quality: body.quality ?? "auto",
       useGrounding: Boolean(body.useGrounding),
-      apiKey: process.env.AI_GATEWAY_API_KEY,
+      apiKey: process.env.AI_GATEWAY_API_KEY ?? "",
       image1DataUrl: body.image1DataUrl,
       image2DataUrl: body.image2DataUrl,
     });

@@ -1,5 +1,6 @@
 import { generateText, generateImage } from "ai";
 import { createGateway } from "@ai-sdk/gateway";
+import { createOpenAI } from "@ai-sdk/openai";
 import { google } from "@ai-sdk/google";
 import { GEMINI_TEXT_MODELS } from "@/components/studio/model-catalog";
 import type { ModelType, ThinkingLevel, Resolution, Quality } from "@/components/studio/types";
@@ -196,6 +197,20 @@ function dataUrlToBase64(dataUrl: string): string {
   return comma >= 0 ? dataUrl.slice(comma + 1) : dataUrl;
 }
 
+// gpt-image-2 走自定义中转（OPENAI_BASE_URL/OPENAI_API_KEY），不经过 AI Gateway。
+const DIRECT_OPENAI_MODELS = new Set(["openai/gpt-image-2"]);
+
+let directOpenAiProvider: ReturnType<typeof createOpenAI> | undefined;
+function getDirectOpenAiProvider() {
+  if (!directOpenAiProvider) {
+    directOpenAiProvider = createOpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+      baseURL: process.env.OPENAI_BASE_URL,
+    });
+  }
+  return directOpenAiProvider;
+}
+
 async function executeNativeImage(input: {
   apiKey: string;
   modelId: string;
@@ -207,8 +222,11 @@ async function executeNativeImage(input: {
   image2DataUrl?: string;
 }): Promise<GenerateImageResult> {
   const startedAt = Date.now();
-  const gateway = createGateway({ apiKey: input.apiKey });
-  const model = gateway.imageModel(input.modelId);
+
+  const isDirectOpenAi = DIRECT_OPENAI_MODELS.has(input.modelId);
+  const model = isDirectOpenAi
+    ? getDirectOpenAiProvider().imageModel(input.modelId.slice("openai/".length))
+    : createGateway({ apiKey: input.apiKey }).imageModel(input.modelId);
 
   const isOpenAI = input.modelId.startsWith("openai/");
 
