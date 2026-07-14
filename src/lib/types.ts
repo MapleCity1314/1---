@@ -68,3 +68,73 @@ export type DriveNodeInput = Pick<
   DriveNode,
   "name" | "parent_id" | "storage_path" | "mime_type" | "ext" | "size"
 >;
+
+// ============================================================
+// 盘面研报模块
+// ============================================================
+
+export const ASSET_TYPES = ["crypto", "commodity", "stock", "macro"] as const;
+export type AssetType = (typeof ASSET_TYPES)[number];
+
+// 关注清单条目（对应 Supabase watchlist_items 表）
+export interface WatchlistItem {
+  id: string;
+  symbol: string; // 展示用代码，如 BTCUSDT / XAUUSD / SKHYNIXUSDT
+  display_name: string; // 展示名，如「BTC」「黄金」
+  asset_type: AssetType;
+  binance_symbol: string | null; // 能在 Binance 拉到 K 线时填；否则走 Tavily
+  sort_order: number;
+  enabled: boolean;
+  notes: string | null;
+  created_at: string;
+  updated_at: string;
+  updated_by: string | null;
+}
+
+// 新建/编辑表单可写字段
+export type WatchlistItemInput = Omit<
+  WatchlistItem,
+  "id" | "created_at" | "updated_at" | "updated_by"
+> & { id?: string };
+
+// 位点数据来源：区分「服务端从 K 线确定性计算」还是「AI 基于联网结果估算」
+export type BriefDataSource = "binance" | "tavily_estimated";
+
+// 单个标的的研报内容（对齐用户示例中"支撑/压力/思路/结论"的版式）
+export interface BriefAssetSection {
+  symbol: string;
+  display_name: string;
+  data_source: BriefDataSource;
+  last_price: number | null;
+  support_levels: number[]; // 由近到远，如 [1350, 1310, 1275]
+  resistance_levels: number[];
+  bias: string; // 思路结论，如"偏空高波动"
+  entry_plan: string; // 进出场策略描述
+  stop_loss: number | null;
+  take_profits: number[]; // TP0/TP1/TP2...
+  invalidation: string | null; // 空头/多头逻辑失效条件
+}
+
+// 完整研报结构化正文（存 trading_briefs.payload）
+export interface BriefPayload {
+  assets: BriefAssetSection[];
+  conclusion: string; // 今日总结论
+  watch_schedule: string[]; // 今日重点关注时间表条目
+  risk_notes: string[]; // 风险提醒与禁止交易条件
+  sources: string[]; // 参考来源
+  disclaimer: string; // 固定免责声明
+}
+
+export type TradingBriefScope = "daily" | "manual" | "event";
+
+// 研报记录（对应 Supabase trading_briefs 表）
+export interface TradingBrief {
+  id: string;
+  scope: TradingBriefScope;
+  title: string;
+  event_note: string | null;
+  payload: BriefPayload;
+  summary: string | null;
+  generated_at: string;
+  created_by: string | null;
+}

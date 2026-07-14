@@ -477,9 +477,20 @@ function MoreHorizontal(p: IconProps) {
   );
 }
 
+// 折线图 / 盘面研报
+function LineChart(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path d="M4 4v16h16" />
+      <path d="M7 15l3.5-4 3 2.5L18 8" />
+    </Svg>
+  );
+}
+
 export {
   Grid,
   Box,
+  LineChart,
   Sparkles,
   Plus,
   X,
